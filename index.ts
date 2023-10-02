@@ -4,8 +4,11 @@ import router from './router';
 import { ApiError } from './utils/error.handler';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import createLoggerInstance from './config/logger';
 
 dotenv.config()
+
+const log = createLoggerInstance(__filename);
 
 const app: Express = express();
 const PORT = process.env.PORT
@@ -44,5 +47,5 @@ app.use((err: ApiError | Error, req: Request, res: Response, next: NextFunction)
 })
 
 app.listen(PORT, () => {
-    console.log(`[server]-[✅]: Server is running on http://localhost:${PORT}/`)
+	log.info(`[server]-[✅]: Server is running on http://localhost:${PORT}/`);
 })
