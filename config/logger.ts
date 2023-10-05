@@ -1,23 +1,24 @@
 import { format, createLogger, transports} from 'winston';
 import path from 'path';
-
+import env from './env';
+import { format as dateFormat } from 'date-fns';
 const { combine, timestamp, label, printf } = format;
 
-const APP_NAME = "";
+const APP_NAME = env.APP_NAME || 'app';
 
 export default function createLoggerInstance(filename:string){
 	
-	const fname = path.basename(filename);
+	const fname = "/" + path.basename(path.dirname(filename)) + "/" + path.basename(filename); // get filename from path
 
 
 	const fileRotateTransport = new transports.File({
 		dirname:'./log',
-		filename: "debug-%DATE%.log",
+		filename: `date-${dateFormat(new Date(), 'dd-MM-yyyy')}.log`,
 	})
 
 	//Using the printf format.
 	const customFormat = printf(({ level, message, label, timestamp, stack }) => {
-		return `${timestamp} [filename][${fname}] [${label}] ${level}: ${message} ${(stack)?stack:''}`;   
+		return `${timestamp} [${fname}] [${label}] ${level}: ${message} ${(stack)?stack:''}`;   
 	});
 
 	const colors = {
