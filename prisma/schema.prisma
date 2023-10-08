@@ -10,61 +10,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Admin {
-  email String @id
-
-  @@map("admins")
-}
-
 model User {
-  id        String      @id @default(uuid())
-  username  String      @unique
-  email     String      @unique
-  password  String
-  role      String      @default("user")
-  image     String
-  bornAt    DateTime
-  UserGames UserGames[]
-
-  @@map("users")
-}
-
-model UserGames {
-  user_id   String
-  game_id   String
-  createdAt DateTime @default(now())
-  user      User     @relation(fields: [user_id], references: [id],onDelete: Cascade)
-  game      Game     @relation(fields: [game_id], references: [id],onDelete: Cascade)
-
-  @@unique([user_id, game_id])
-  @@map("users_games")
-}
-
-model Game {
-  id          String         @id @default(uuid())
-  title       String
-  description String
-  editor     String
-  image       String         @default("null")
-  UserGames   UserGames[]
-  categories  GameCategory[]
-
-  @@map("games")
-}
-
-model GameCategory {
-  category_id String
-  game_id     String
-  category    Category @relation(fields: [category_id], references: [id])
-  game        Game     @relation(fields: [game_id], references: [id])
-
-  @@unique([category_id, game_id])
-}
-
-model Category {
-  id           String         @id @default(uuid())
-  name         String
-  GameCategory GameCategory[]
-
-  @@map("categories")
+  id         String   @id @default(uuid())
+  name       String
+  lastName   String
+  email      String   @unique
+  birthday   DateTime @default(now())
+  password   String
+  phone      String
+  country_id String
+  address    Json     @default("{\"street\": \"\", \"number\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\", \"country\": \"\"}")
+  links      Json     @default("{\"icon\": \"\", \"name\": \"\", \"url\": \"\"}")
+  biography  String
+  job_title  String
+  image      String
+  lang       String
 }

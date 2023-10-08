@@ -8,6 +8,8 @@ const envVarsSchema = joi.object().keys({
     APP_NAME: joi.string().required(),
     PORT: joi.number().default(3000),
     DATABASE_URL: joi.string().uri().required(),
+    LINKEDIN_CLIENT_ID: joi.string().required(),
+    LINKEDIN_CLIENT_SECRET: joi.string().required(),
 }).unknown().required();
 
 // init
@@ -22,6 +24,8 @@ const  env = {
     APP_NAME: process.env.APP_NAME,
     PORT: process.env.PORT,
     DATABASE_URL: process.env.DATABASE_URL,
+    LINKEDIN_CLIENT_ID: process.env.LINKEDIN_CLIENT_ID,
+    LINKEDIN_CLIENT_SECRET: process.env.LINKEDIN_CLIENT_SECRET,
 }
 
 export default env;

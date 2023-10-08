@@ -6,11 +6,25 @@ import { Prisma, PrismaClient } from "@prisma/client";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import passport from "passport";
+import createLoggerInstance from "../config/logger";
 
-dotenv.config();
+const log = createLoggerInstance(__filename);
 
 const prisma = new PrismaClient();
 export class AuthController {
+
+    static async linkedin(req: Request, res: Response, next: NextFunction) {
+        log.info('linkedin')
+        return passport.authenticate('linkedin', { failureRedirect: '/login' })
+    }
+
+    static async linkedinCallback(req: Request, res: Response, next: NextFunction) {
+        return passport.authenticate('linkedin', {
+            successRedirect: '/',
+            failureRedirect: '/login'
+        })
+    }
 
     static async login(req: Request, res: Response, next: NextFunction) {
 
@@ -107,6 +121,9 @@ export class AuthController {
 
     static router(): Router {
         const router = Router();
+
+        router.get('/linkedin', wrapper(this.linkedin))
+        router.get('/linkedin/callback', wrapper(this.linkedinCallback))
 
         router.post('/login', wrapper(this.login))
         router.post('/signup', wrapper(this.signup))

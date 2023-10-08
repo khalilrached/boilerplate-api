@@ -1,9 +1,9 @@
 import { PrismaClient } from "@prisma/client"
 const prisma = new PrismaClient();
 async function main() {
-    await prisma.admin.createMany({
-        data:[{email:'khalilrached058@gmail.com'}]
-    })
+    // await prisma.admin.createMany({
+    //     data:[{email:'khalilrached058@gmail.com'}]
+    // })
 }
 
 

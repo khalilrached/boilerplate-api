@@ -4,7 +4,6 @@ export class UserController {
     
     static router(): Router {
         const router = Router();
-        router.get('/',this.hello);
         return router;
     }
 

@@ -163,10 +163,10 @@ export class GameController {
 
         router.get('/', wrapper(this.getGames))
         router.get('/categories', wrapper(this.getCategories))
-        router.post('/', hasRole('admin'), wrapper(this.createGame))
-        router.put('/', hasRole('admin'), wrapper(this.updateGame))
-        router.delete('/', hasRole('admin'), wrapper(this.deleteGame))
-        router.post('/buy', hasRole('user', 'admin'), wrapper(this.buyGame))
+        // router.post('/', hasRole('admin'), wrapper(this.createGame))
+        // router.put('/', hasRole('admin'), wrapper(this.updateGame))
+        // router.delete('/', hasRole('admin'), wrapper(this.deleteGame))
+        // router.post('/buy', hasRole('user', 'admin'), wrapper(this.buyGame))
 
         return router;
     }

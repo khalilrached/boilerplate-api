@@ -3,7 +3,7 @@ import createLoggerInstance from "../config/logger";
 
 const log = createLoggerInstance(__filename);
 
-const httpLogger: RequestHandler = (req: Request, res: Response, next: NextFunction) => {
+const httpLogger: any = (req: Request, res: Response, next: NextFunction) => {
     log.info(`[http]-[${req.method}]: ${req.url}`);
     next();
 }
